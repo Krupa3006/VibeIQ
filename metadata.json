@@ -1,0 +1,5 @@
+{
+  "name": "VibeIQ",
+  "description": "An AI-driven intelligence engine that discovers local spots based on emotional resonance and real-time ambiance data.",
+  "requestFramePermissions": ["geolocation"]
+}

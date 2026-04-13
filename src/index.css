@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --color-vibe-pink: #ff0080;
+  --color-vibe-purple: #7928ca;
+  --color-vibe-cyan: #00f2fe;
+  --color-surface-dark: #0a0a0f;
+}
+
+body {
+  background-color: #0a0a0f;
+  background-image: radial-gradient(at 0% 0%, rgba(121, 40, 202, 0.15) 0, transparent 50%), radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.1) 0, transparent 50%);
+  background-attachment: fixed;
+  color: #f9f5fd;
+  font-family: var(--font-body);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7hrzdgd4IueGDMSYudh3h3ASDhFnbczwXw3Lp8T1d-xF8hREytmKMGMTgtbvNP85NPEcQYYS8KWQ-QfU3UNeWM1M4nSa8S93nqDJFZ9b8SpF5TsOATmCfCtUfd-qGTNeGYs0C1zh6Yms03hcj81zOwajd97QXJwsJJZ51vIKD6zKB6mQUg1B2ORnNiDw_0S4LTC_CsORxE2nAnQkihaA51Ya9tiY8HvDJ3GIl6huxhdOxzR49IIs24Gp0bheOllohXRLrxoxUmQc');
+  z-index: 9999;
+}
+
+.vibe-gradient-text {
+  background: linear-gradient(135deg, #ff0080, #7928ca, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vibe-gradient-bg {
+  background: linear-gradient(to right, #ff0080, #7928ca, #00f2fe);
+}
+
+.signature-pulse {
+  box-shadow: 0 0 20px rgba(121, 40, 202, 0.2);
+}
+
+.pulse-loader {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #ff0080, #7928ca, #00f2fe, transparent);
+  background-size: 200% 100%;
+  animation: pulse-flow 2s infinite linear;
+}
+
+@keyframes pulse-flow {
+  0% { background-position: 100% 0%; }
+  100% { background-position: -100% 0%; }
+}
+
+.glow-orb {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  filter: blur(160px);
+  z-index: -1;
+  opacity: 0.12;
+}
+
+/* Backward compatibility for existing components */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+.text-gradient {
+  background: linear-gradient(135deg, #ff0080, #7928ca, #00f2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
