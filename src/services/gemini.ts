@@ -11,35 +11,48 @@ type GeminiResponse = {
 export async function getGeminiResponse(
   prompt: string,
   location?: UserLocation,
-  modelName = "gemini-3.0-flash",
-  systemInstruction?: string
+  modelName = "gemini-2.0-flash"
 ): Promise<GeminiResponse> {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Gemini API key missing");
+  }
+
   try {
-    const res = await fetch("/api/gemini", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt,
-        location,
-        modelName,
-        systemInstruction,
-      }),
-    });
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }],
+            },
+          ],
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Gemini API Error:", text);
+      throw new Error("Gemini API failed");
+    }
 
     const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data?.error || "Failed to get Gemini response");
-    }
-
     return {
-      text: data?.text || "",
-      groundingChunks: data?.groundingChunks || [],
+      text:
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response",
+      groundingChunks: [],
     };
   } catch (error: any) {
     console.error("Gemini Error:", error);
-    throw new Error(error?.message || "Unable to fetch Gemini response");
+    throw new Error(error.message || "Failed to fetch Gemini response");
   }
 }
